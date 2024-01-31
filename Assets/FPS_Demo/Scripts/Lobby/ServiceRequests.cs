@@ -9,21 +9,21 @@ using System.Text;
 using Edgegap;
 using static CustomEvents;
 
-public class LobbyScript : NetworkBehaviour
+public class ServiceRequests : NetworkBehaviour
 {
     private readonly HttpClient _httpClient = new();
 
     public EdgegapTransport _EdgegapTransport = EdgegapTransport.GetInstance();
 
-    public static string lobbyApiUrl = "https://abc-cb74ab23450fd5.edgegap.net"; //subject to change, make sure its up to date
+    public static string serviceApiUrl = "YOUR_SERVICE_URL"; //change value to your lobby service's URL
 
     /// <summary>
     /// Get List
     /// </summary>
     /// <returns>List of lobbies</returns>
-    public async Task<LobbiesResponse> RequestGet()
+    public async Task<Lobbies> RequestGet()
     {
-        var response = await _httpClient.GetAsync($"{lobbyApiUrl}/lobbies");
+        var response = await _httpClient.GetAsync($"{serviceApiUrl}/lobbies");
 
         if (!response.IsSuccessStatusCode)
         {
@@ -31,7 +31,7 @@ public class LobbyScript : NetworkBehaviour
         }
 
         string responseContent = await response.Content.ReadAsStringAsync();
-        LobbiesResponse content = JsonConvert.DeserializeObject<LobbiesResponse>(responseContent);
+        Lobbies content = JsonConvert.DeserializeObject<Lobbies>(responseContent);
 
         return content;
     }
@@ -43,7 +43,7 @@ public class LobbyScript : NetworkBehaviour
     /// <returns>Lobby</returns>
     public async Task<Lobby> RequestGet(string lobbyId)
     {
-        var response = await _httpClient.GetAsync($"{lobbyApiUrl}/lobbies/{lobbyId}");
+        var response = await _httpClient.GetAsync($"{serviceApiUrl}/lobbies/{lobbyId}");
 
         if (!response.IsSuccessStatusCode)
         {
@@ -81,7 +81,7 @@ public class LobbyScript : NetworkBehaviour
 
         var jsonContent = new StringContent(JsonConvert.SerializeObject(objectToSerialize), Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PostAsync($"{lobbyApiUrl}/lobbies", jsonContent);
+        var response = await _httpClient.PostAsync($"{serviceApiUrl}/lobbies", jsonContent);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -108,7 +108,7 @@ public class LobbyScript : NetworkBehaviour
 
         var jsonContent = new StringContent(JsonConvert.SerializeObject(objectToSerialize), Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PostAsync($"{lobbyApiUrl}/lobbies:start", jsonContent);
+        var response = await _httpClient.PostAsync($"{serviceApiUrl}/lobbies:start", jsonContent);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -133,7 +133,7 @@ public class LobbyScript : NetworkBehaviour
 
         var jsonContent = new StringContent(JsonConvert.SerializeObject(objectToSerialize), Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PostAsync($"{lobbyApiUrl}/lobbies:{action}", jsonContent);
+        var response = await _httpClient.PostAsync($"{serviceApiUrl}/lobbies:{action}", jsonContent);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -148,7 +148,7 @@ public class LobbyScript : NetworkBehaviour
     /// <returns>ccompleted task</returns>
     public async Task RequestDelete(string lobbyId)
     {
-        var response = await _httpClient.DeleteAsync($"{lobbyApiUrl}/lobbies/{lobbyId}");
+        var response = await _httpClient.DeleteAsync($"{serviceApiUrl}/lobbies/{lobbyId}");
 
         if (!response.IsSuccessStatusCode)
         {
@@ -213,7 +213,7 @@ public class LobbyScript : NetworkBehaviour
     #endregion Payloads
 
     #region Responses
-    public class LobbiesResponse
+    public class Lobbies
     {
         public int count { get; set; }
         public List<Lobby> data { get; set; }

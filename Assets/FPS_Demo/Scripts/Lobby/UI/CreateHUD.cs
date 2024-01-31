@@ -4,14 +4,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using static CustomEvents;
-using static LobbyScript;
+using static ServiceRequests;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System;
 
 public class CreateHUD : MonoBehaviour
 {
-    private readonly LobbyScript _lobby = new();
+    private readonly ServiceRequests _lobby = new();
 
     private int minCapacityValue = 2;
 

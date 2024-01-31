@@ -7,12 +7,12 @@ using static CustomEvents;
 using UnityEngine.Events;
 using System.Net.Http;
 using System;
-using static LobbyScript;
+using static ServiceRequests;
 using System.Threading.Tasks;
 
 public class LobbyHUD : MonoBehaviour
 {
-    private readonly LobbyScript _lobby = new();
+    private readonly ServiceRequests _lobby = new();
     private readonly float waitingTimeSec = 5;
     
     private Lobby activeLobby = null;

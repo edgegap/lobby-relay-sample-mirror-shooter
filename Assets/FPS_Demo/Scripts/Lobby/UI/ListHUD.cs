@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static LobbyScript;
+using static ServiceRequests;
 using static CustomEvents;
 using System.Threading.Tasks;
 using System.Net.Http;
@@ -11,7 +11,7 @@ using System;
 
 public class ListHUD : MonoBehaviour
 {
-    private readonly LobbyScript _lobby = new();
+    private readonly ServiceRequests _lobby = new();
 
     public Button btnRefresh;
     public GameObject noEntries;
@@ -65,7 +65,7 @@ public class ListHUD : MonoBehaviour
             e_onCallLoading.Invoke(true, true);
 
             Debug.Log("Fetching lobbies...");
-            LobbiesResponse lobbies = await _lobby.RequestGet();
+            Lobbies lobbies = await _lobby.RequestGet();
 
             EmptyListDisplay();
 

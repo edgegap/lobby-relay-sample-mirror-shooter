@@ -12,7 +12,7 @@ namespace QuickStart
 {
     public class Menu : NetworkBehaviour
     {
-        private readonly LobbyScript _lobby = new();
+        private readonly ServiceRequests _lobby = new();
 
         public EdgegapTransport _EdgegapTransport = EdgegapTransport.GetInstance();
         private readonly HttpClient _httpClient = new();

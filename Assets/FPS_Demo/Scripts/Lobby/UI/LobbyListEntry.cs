@@ -7,11 +7,11 @@ using static CustomEvents;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System;
-using static LobbyScript;
+using static ServiceRequests;
 
 public class LobbyListEntry : MonoBehaviour
 {
-    private readonly LobbyScript _lobby = new();
+    private readonly ServiceRequests _lobby = new();
 
     /// <summary>
     /// When clicking on the lobby
